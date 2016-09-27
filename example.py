@@ -104,16 +104,30 @@ for i in range(0,10):
     larcv_outputcontainer = larcv_io.get_data( larcv.kProductImage2D, "pmtimage" )
     larcv_outputcontainer.Image2DArray().push_back( img )
 
+    # make a larcv ROI
+    myroi = larcv.ROI() # rois specify where in the image a particle (or something of interest) is occuring
+
+    # make output container for ROI
     larcv_outputroi = larcv_io.get_data( larcv.kProductROI, "id" )
+
+    # give the ROI a type. for more info on labels see: (https://github.com/LArbys/LArCV/blob/develop/core/DataFormat/DataFormatTypes.h)
+    #myroi.Type( larcv.kROICosmic ) # typically label for background
+    #myroi.Type( larcv.kROIBNB )    # typically label for neutrinos
+
+    # put our ROI into the container
     larcv_outputroi.ROIArray().push_back( larcv.ROI() )
 
     # set the event id: this needs to be set to make sure the output is correct
     larcv_io.set_id( event_imgs.run(), event_imgs.subrun(), event_imgs.event() ) 
+    larlite_io.set_id( event_imgs.run(), event_imgs.subrun(), event_imgs.event() ) 
+
     # put the data in the output containers into the tree
     larcv_io.save_entry()
+    #larlite_io.write_event()
 
 # write to disk
 larcv_io.finalize()
+larlite_io.close()
 
 
     
