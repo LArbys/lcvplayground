@@ -14,7 +14,7 @@ dataco = larlitecv.DataCoordinator()
 using_filelists = False
 
 if using_filelists:
-    # if using filelists to specify files
+    # one can use filelists to specify file locations
     fin_larlite = "ex_databnb_larlite.txt"
     fin_larcv   = "ex_databnb_larcv.txt"
 
@@ -22,7 +22,6 @@ if using_filelists:
     dataco.set_filelist( fin_larcv, "larcv" )
 else:
     # one can add files one at a time
-    # (I'm reading my file paths from a file list, but the point is to use add_inputfile)
     fin_larlite = ["data/data_samples/v05/data_extbnb_to_larcv_v00_p00/larlite_opdigit_0000.root",
                    "data/data_samples/v05/data_extbnb_to_larcv_v00_p00/larlite_wire_0000.root",
                    "data/data_samples/v05/data_extbnb_to_larcv_v00_p00/larlite_opreco_0000.root"]
