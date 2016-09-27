@@ -117,8 +117,7 @@ for i in range(0,10):
     larcv_outputroi.ROIArray().push_back( larcv.ROI() )
 
     # set the event id: this needs to be set to make sure the output is correct
-    #larcv_io.set_id( event_imgs.run(), event_imgs.subrun(), event_imgs.event() )   # deprecated
-    #larlite_io.set_id( event_imgs.run(), event_imgs.subrun(), event_imgs.event() ) # deprecated
+    #dataco.set_id( event_imgs.run(), event_imgs.subrun(), event_imgs.event() ) # deprecated. not needed
 
     # put the data in the output containers into the tree
     dataco.save_entry()
