@@ -123,7 +123,7 @@ for i in range(0,10):
     dataco.save_entry()
 
 # write to disk
-data.finalize()
+dataco.finalize()
 
 
     
