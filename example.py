@@ -12,8 +12,6 @@ print "load libraries: ",time()-s
 dataco = larlitecv.DataCoordinator()
 
 using_filelists = False
-adding_files = True
-
 
 if using_filelists:
     # if using filelists to specify files
@@ -25,18 +23,15 @@ if using_filelists:
 else:
     # one can add files one at a time
     # (I'm reading my file paths from a file list, but the point is to use add_inputfile)
-    fin_larlite = "ex_databnb_larlite.txt"
-    fin_larcv   = "ex_databnb_larcv.txt"
+    fin_larlite = ["data/data_samples/v05/data_extbnb_to_larcv_v00_p00/larlite_opdigit_0000.root",
+                   "data/data_samples/v05/data_extbnb_to_larcv_v00_p00/larlite_wire_0000.root",
+                   "data/data_samples/v05/data_extbnb_to_larcv_v00_p00/larlite_opreco_0000.root"]
+    fin_larcv   = ["data/data_samples/v05/data_extbnb_to_larcv_v00_p00/supera_data_0000.root"]
     
-    flarlite = open( fin_larlite )
-    lines =  flarlite.readlines()
-    for l in lines:
-        dataco.add_inputfile( l, "larlite" )
-
-    flarcv = open( fin_larcv )
-    lines =  flarcv.readlines()
-    for l in lines:
-        dataco.add_inputfile( l, "larcv" )
+    for f in fin_larlite:
+        dataco.add_inputfile( f, "larlite" )
+    for f in fin_larcv:
+        dataco.add_inputfile( f, "larcv" )
 
 # note that if one both specifies a filelist and then adds files, the filelist takes priority.
 # mixed usage not supported yet
