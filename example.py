@@ -50,7 +50,7 @@ print "entries (larcv):   ",entries["larcv"]
 # we pick which file type drives the event loop
 driver = "larlite"
 
-# get the iomanagers
+# get the iomanagers (not needed in this example, but here they are if you need them)
 larlite_io = dataco.get_larlite_io()
 larcv_io   = dataco.get_larcv_io()
 
@@ -63,13 +63,13 @@ for i in range(0,10):
     # use the ReadOnlyX parameters in the configuration file
 
     # get stuff example
-    event_imgs = larcv_io.get_data( larcv.kProductImage2D, "tpc" )   # tpc images from input larcv file
-    opdata     = larlite_io.get_data(larlite.data.kOpDetWaveform, "pmtreadout" ) # pmt waveforms from input larlite file
+    print "get data larcv"
+    event_imgs = dataco.get_larcv_data( larcv.kProductImage2D, "tpc" )   # tpc images from input larcv file
+    print "get data larlite"
+    opdata     = dataco.get_larlite_data( larlite.data.kOpDetWaveform, "pmtreadout" ) # pmt waveforms from input larlite file
 
     # do stuff example
-    print "Entry: ",i
-    print " LARLITE:",larlite_io.run_id(),larlite_io.subrun_id(),larlite_io.event_id()
-    print " LARCV: ",event_imgs.run(),event_imgs.subrun(),event_imgs.event() 
+    print "Entry: ",i,dataco.run(), dataco.subrun(), dataco.event()
 
     # define out image meta: defines image
     x_coord_width = 1500.0
@@ -99,14 +99,14 @@ for i in range(0,10):
             img.set_pixel( pmt, i, adc )
 
     # image defined. save it to larcv file
-    larcv_outputcontainer = larcv_io.get_data( larcv.kProductImage2D, "pmtimage" )
+    larcv_outputcontainer = dataco.get_larcv_data( larcv.kProductImage2D, "pmtimage" )
     larcv_outputcontainer.Image2DArray().push_back( img )
 
     # make a larcv ROI
     myroi = larcv.ROI() # rois specify where in the image a particle (or something of interest) is occuring
 
     # make output container for ROI
-    larcv_outputroi = larcv_io.get_data( larcv.kProductROI, "id" )
+    larcv_outputroi = dataco.get_larcv_data( larcv.kProductROI, "id" )
 
     # give the ROI a type. for more info on labels see: (https://github.com/LArbys/LArCV/blob/develop/core/DataFormat/DataFormatTypes.h)
     #myroi.Type( larcv.kROICosmic ) # typically label for background
@@ -116,7 +116,7 @@ for i in range(0,10):
     larcv_outputroi.ROIArray().push_back( larcv.ROI() )
 
     # set the event id: this needs to be set to make sure the output is correct
-    #dataco.set_id( event_imgs.run(), event_imgs.subrun(), event_imgs.event() ) # deprecated. not needed
+    #dataco.set_id( dataco.run(), dataco.subrun(), dataco.event() ) # deprecated. not needed
 
     # put the data in the output containers into the tree
     dataco.save_entry()
