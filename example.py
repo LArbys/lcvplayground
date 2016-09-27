@@ -70,7 +70,6 @@ for i in range(0,10):
     print "Entry: ",i
     print " LARLITE:",larlite_io.run_id(),larlite_io.subrun_id(),larlite_io.event_id()
     print " LARCV: ",event_imgs.run(),event_imgs.subrun(),event_imgs.event() 
-    print " LARCV: ",event_imgs.run(),event_imgs.subrun(),event_imgs.event() 
 
     # define out image meta: defines image
     x_coord_width = 1500.0
